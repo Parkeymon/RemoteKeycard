@@ -24,7 +24,7 @@ namespace RemoteKeycard.Extensions
                 return false;
 
             return requiresAllPermissions ?
-                player.Items.Any(item => item is Keycard keycard && keycard.Permissions.HasFlag(permissions))
+                player.Items.Any(item => item is Keycard keycard && keycard.Base.Permissions.HasFlagFast(permissions))
                 : player.Items.Any(item => item is Keycard keycard && (keycard.Base.Permissions & permissions) != 0);
         }
     }
