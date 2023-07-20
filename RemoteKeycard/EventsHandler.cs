@@ -54,7 +54,7 @@ namespace RemoteKeycard
                 
                 Log.Debug($"Allowed: {ev.IsAllowed}, Permission?: {ev.Player.HasKeycardPermission(ev.Door.RequiredPermissions.RequiredPermissions)}, Current Item: ${ev.Player.CurrentItem}");
 
-                if(!ev.IsAllowed && ev.Player.HasKeycardPermission(ev.Door.RequiredPermissions.RequiredPermissions))
+                if (!ev.IsAllowed && ev.Player.HasKeycardPermission(ev.Door.RequiredPermissions.RequiredPermissions) && !ev.Door.IsLocked)
                     ev.IsAllowed = true;
 
             } catch(Exception e)
@@ -108,6 +108,8 @@ namespace RemoteKeycard
             {
                 if(!_config.AffectScpLockers)
                     return;
+
+                Log.Debug($"Allowed: {ev.IsAllowed}, Permission?: {ev.Player.HasKeycardPermission(ev.Chamber.RequiredPermissions, true)}");
                 
                 if(!ev.IsAllowed && ev.Chamber != null && ev.Player.HasKeycardPermission(ev.Chamber.RequiredPermissions, true))
                     ev.IsAllowed = true;
