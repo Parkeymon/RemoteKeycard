@@ -30,13 +30,13 @@ jobs:
       - name: Download references
         uses: carlosperate/download-file-action@v1.0.3
         with:
-          file-url: 'https://www.exiled.host/build_deps/Dev.zip'
+          file-url: 'https://exmod-team.github.io/SL-References/Dev.zip'
           file-name: 'References.zip'
 
       - name: Download 7zip
         uses: carlosperate/download-file-action@v1.0.3
         with:
-          file-url: 'https://www.exiled.host/7za.exe'
+          file-url: 'https://7-zip.org/a/7z2408-x64.exe'
           file-name: '7zip.exe'
 
       - name: Extract Refs
