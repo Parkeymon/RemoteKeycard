@@ -8,7 +8,7 @@ using Players = Exiled.Events.Handlers.Player;
 
 public class EventHandlers
 {
-    private readonly Config config;
+    private readonly Config _config;
 
     /// <summary>
     ///     Initializes a new instance of the <see cref="EventHandlers" /> class.
@@ -16,7 +16,7 @@ public class EventHandlers
     /// <param name="config">The <see cref="Config" /> settings that will be used.</param>
     public EventHandlers(Config config)
     {
-        this.config = config;
+        this._config = config;
     }
 
     /// <summary>
@@ -47,7 +47,7 @@ public class EventHandlers
         Log.Debug("Door Interact Event");
         try
         {
-            if (!config.AffectDoors)
+            if (!_config.AffectDoors)
                 return;
 
             Log.Debug(
@@ -59,7 +59,7 @@ public class EventHandlers
         }
         catch (Exception e)
         {
-            if (config.ShowExceptions)
+            if (_config.ShowExceptions)
                 Log.Warn($"{nameof(OnDoorInteract)}: {e.Message}\n{e.StackTrace}");
         }
     }
@@ -69,7 +69,7 @@ public class EventHandlers
         Log.Debug("Warhead Unlock Event");
         try
         {
-            if (!config.AffectWarheadPanel)
+            if (!_config.AffectWarheadPanel)
                 return;
 
             Log.Debug(
@@ -80,7 +80,7 @@ public class EventHandlers
         }
         catch (Exception e)
         {
-            if (config.ShowExceptions)
+            if (_config.ShowExceptions)
                 Log.Warn($"{nameof(OnWarheadUnlock)}: {e.Message}\n{e.StackTrace}");
         }
     }
@@ -90,7 +90,7 @@ public class EventHandlers
         Log.Debug("Generator Unlock Event");
         try
         {
-            if (!config.AffectGenerators)
+            if (!_config.AffectGenerators)
                 return;
 
             Log.Debug(
@@ -101,7 +101,7 @@ public class EventHandlers
         }
         catch (Exception e)
         {
-            if (config.ShowExceptions)
+            if (_config.ShowExceptions)
                 Log.Warn($"{nameof(OnGeneratorUnlock)}: {e.Message}\n{e.StackTrace}");
         }
     }
@@ -111,19 +111,19 @@ public class EventHandlers
         Log.Debug("Locker Interact Event");
         try
         {
-            if (!config.AffectScpLockers)
+            if (!_config.AffectScpLockers)
                 return;
 
             Log.Debug(
-                $"Allowed: {ev.IsAllowed}, Permission?: {ev.Player.HasKeycardPermission(ev.Chamber.RequiredPermissions, true)}");
+                $"Allowed: {ev.IsAllowed}, Permission?: {ev.Player.HasKeycardPermission(ev.InteractingChamber.Base.RequiredPermissions, true)}");
 
-            if (!ev.IsAllowed && ev.Chamber != null &&
-                ev.Player.HasKeycardPermission(ev.Chamber.RequiredPermissions, true))
+            if (!ev.IsAllowed && ev.InteractingChamber != null &&
+                ev.Player.HasKeycardPermission(ev.InteractingChamber.Base.RequiredPermissions, true))
                 ev.IsAllowed = true;
         }
         catch (Exception e)
         {
-            if (config.ShowExceptions)
+            if (_config.ShowExceptions)
                 Log.Warn($"{nameof(OnLockerInteract)}: {e.Message}\n{e.StackTrace}");
         }
     }

@@ -1,8 +1,8 @@
-﻿namespace RemoteKeycard;
+﻿#nullable enable
+namespace RemoteKeycard;
 
 using System;
 using Exiled.API.Features;
-using Players = Exiled.Events.Handlers.Player;
 
 public class Plugin : Plugin<Config>
 {

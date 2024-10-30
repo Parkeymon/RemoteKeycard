@@ -41,7 +41,13 @@ public class Config : IConfig
     [Description("Toggle on/off exceptions/errors in console. (Enable this before reporting ANY bugs)")]
     public bool ShowExceptions { get; set; } = false;
 
+    /// <summary>
+    ///    Gets or sets a value indicating whether this plugin is enabled.
+    /// </summary>
     public bool IsEnabled { get; set; } = true;
 
+    /// <summary>
+    /// Gets or sets a value indicating whether debug messages should be shown.
+    /// </summary>
     public bool Debug { get; set; } = false;
 }

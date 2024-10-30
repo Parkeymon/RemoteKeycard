@@ -20,7 +20,7 @@ public static class Extensions
         KeycardPermissions permissions,
         bool requiresAllPermissions = false)
     {
-        if (Plugin.Instance.Config.AmnesiaMatters && player.IsEffectActive<AmnesiaVision>())
+        if (Plugin.Instance != null && Plugin.Instance.Config.AmnesiaMatters && player.IsEffectActive<AmnesiaVision>())
             return false;
 
         return requiresAllPermissions
