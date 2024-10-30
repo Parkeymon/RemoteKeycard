@@ -16,7 +16,7 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Setup Nuget
         uses: iRebbok/setup-nuget@master
@@ -48,7 +48,7 @@ jobs:
         run: msbuild RemoteKeycard.sln -p:Configuration=release
 
       - name: Upload Build
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: Plugin DLL
           path: RemoteKeycard\bin\Release\RemoteKeycard*.dll
