@@ -33,7 +33,7 @@ public class Plugin : Plugin<Config>
     public override string Author => "Beryl (Maintained by Parkeymon)";
 
     /// <inheritdoc />
-    public override Version Version => new(3, 3, 0);
+    public override Version Version => new(3, 3, 1);
 
     /// <inheritdoc cref="EventHandlers" />
     private EventHandlers? Handler { get; set; }
