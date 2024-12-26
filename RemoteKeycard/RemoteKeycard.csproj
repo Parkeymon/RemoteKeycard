@@ -26,6 +26,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="ExMod.Exiled" Version="8.13.1" />
+    <PackageReference Include="ExMod.Exiled" Version="9.0.1" />
   </ItemGroup>
 </Project>
