@@ -1,9 +1,10 @@
-﻿namespace RemoteKeycard;
+﻿using Exiled.API.Enums;
+
+namespace RemoteKeycard;
 
 using System;
 using Exiled.API.Features;
 using Exiled.Events.EventArgs.Player;
-using Interactables.Interobjects.DoorUtils;
 using Players = Exiled.Events.Handlers.Player;
 
 public class EventHandlers
@@ -51,9 +52,9 @@ public class EventHandlers
                 return;
 
             Log.Debug(
-                $"Allowed: {ev.IsAllowed}, Permission?: {ev.Player.HasKeycardPermission(ev.Door.RequiredPermissions.RequiredPermissions)}, Current Item: ${ev.Player.CurrentItem}");
+                $"Allowed: {ev.IsAllowed}, Permission?: {ev.Player.HasKeycardPermission(ev.Door.KeycardPermissions)}, Current Item: ${ev.Player.CurrentItem}");
 
-            if (!ev.IsAllowed && ev.Player.HasKeycardPermission(ev.Door.RequiredPermissions.RequiredPermissions) &&
+            if (!ev.IsAllowed && ev.Player.HasKeycardPermission(ev.Door.KeycardPermissions) &&
                 !ev.Door.IsLocked)
                 ev.IsAllowed = true;
         }
@@ -94,9 +95,9 @@ public class EventHandlers
                 return;
 
             Log.Debug(
-                $"Allowed: {ev.IsAllowed}, Permission?: {ev.Player.HasKeycardPermission(ev.Generator.Base._requiredPermission)}");
+                $"Allowed: {ev.IsAllowed}, Permission?: {ev.Player.HasKeycardPermission(ev.Generator.KeycardPermissions)}");
 
-            if (!ev.IsAllowed && ev.Player.HasKeycardPermission(ev.Generator.Base._requiredPermission))
+            if (!ev.IsAllowed && ev.Player.HasKeycardPermission(ev.Generator.KeycardPermissions))
                 ev.IsAllowed = true;
         }
         catch (Exception e)
@@ -115,10 +116,10 @@ public class EventHandlers
                 return;
 
             Log.Debug(
-                $"Allowed: {ev.IsAllowed}, Permission?: {ev.Player.HasKeycardPermission(ev.InteractingChamber.Base.RequiredPermissions, true)}");
+                $"Allowed: {ev.IsAllowed}, Permission?: {ev.Player.HasKeycardPermission(ev.InteractingChamber.RequiredPermissions, true)}");
 
             if (!ev.IsAllowed && ev.InteractingChamber != null &&
-                ev.Player.HasKeycardPermission(ev.InteractingChamber.Base.RequiredPermissions, true))
+                ev.Player.HasKeycardPermission(ev.InteractingChamber.RequiredPermissions, true))
                 ev.IsAllowed = true;
         }
         catch (Exception e)
