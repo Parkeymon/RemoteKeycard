@@ -1,4 +1,6 @@
-﻿namespace RemoteKeycard;
+﻿using Exiled.API.Enums;
+
+namespace RemoteKeycard;
 
 using System.Linq;
 using CustomPlayerEffects;
@@ -24,7 +26,7 @@ public static class Extensions
             return false;
 
         return requiresAllPermissions
-            ? player.Items.Any(item => item is Keycard keycard && keycard.Base.Permissions.HasFlag(permissions))
-            : player.Items.Any(item => item is Keycard keycard && (keycard.Base.Permissions & permissions) != 0);
+            ? player.Items.Any(item => item is Keycard keycard && keycard.Permissions.HasFlag(permissions))
+            : player.Items.Any(item => item is Keycard keycard && (keycard.Permissions & permissions) != 0);
     }
 }
