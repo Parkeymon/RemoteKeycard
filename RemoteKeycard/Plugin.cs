@@ -27,13 +27,13 @@ public class Plugin : Plugin<Config>
     public override string Prefix => "remote_keycard";
 
     /// <inheritdoc />
-    public override Version RequiredExiledVersion => new(8, 4, 2);
+    public override Version RequiredExiledVersion => new(9, 6, 0);
 
     /// <inheritdoc />
     public override string Author => "Beryl (Maintained by Parkeymon)";
 
     /// <inheritdoc />
-    public override Version Version => new(3, 3, 2);
+    public override Version Version => new(3, 3, 3);
 
     /// <inheritdoc cref="EventHandlers" />
     private EventHandlers? Handler { get; set; }
