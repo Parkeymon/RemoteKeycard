@@ -30,7 +30,7 @@ public class Plugin : Plugin<Config>
     public override string Name => "RemoteKeycard";
 
     /// <inheritdoc />
-    public override string Author => "Beryl (Maintained by Parkeymon)";
+    public override string Author => "Beryl (Maintained by Parkeymon && Unbistrackted)";
 
 #if EXILED
     /// <inheritdoc />
