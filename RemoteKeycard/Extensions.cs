@@ -1,11 +1,14 @@
-﻿using Exiled.API.Enums;
-
-namespace RemoteKeycard;
+﻿namespace RemoteKeycard;
 
 using System.Linq;
 using CustomPlayerEffects;
+#if EXILED
 using Exiled.API.Features;
 using Exiled.API.Features.Items;
+#else
+using LabApi.Features.Wrappers;
+using Keycard = LabApi.Features.Wrappers.KeycardItem;
+#endif
 using Interactables.Interobjects.DoorUtils;
 
 public static class Extensions
@@ -18,7 +21,12 @@ public static class Extensions
     /// <returns>Whether the player has the required keycard.</returns>
     public static bool HasKeycardPermission(this Player player, IDoorPermissionRequester permissions)
     {
-        if (Plugin.Instance != null && Plugin.Instance.Config.AmnesiaMatters && player.IsEffectActive<AmnesiaVision>())
+        if (Plugin.Instance != null && Plugin.Instance.Config.AmnesiaMatters
+#if EXILED
+            && player.IsEffectActive<AmnesiaVision>())
+#else
+            && player.HasEffect<AmnesiaVision>())
+#endif
             return false;
 
         return player.Items.Any(item => item is Keycard keycard && item.Base is IDoorPermissionProvider keycardProvider && permissions.PermissionsPolicy.CheckPermissions(keycardProvider.GetPermissions(permissions)));
