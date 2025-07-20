@@ -34,7 +34,7 @@ public class Plugin : Plugin<Config>
 
 #if EXILED
     /// <inheritdoc />
-    public override Version RequiredExiledVersion => new(9, 6, 0);
+    public override Version RequiredExiledVersion => new(9, 6, 3);
 
 #else
         /// <inheritdoc />
