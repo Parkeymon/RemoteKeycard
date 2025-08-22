@@ -34,7 +34,7 @@ public class Plugin : Plugin<Config>
 
 #if EXILED
     /// <inheritdoc />
-    public override Version RequiredExiledVersion => new(9, 6, 3);
+    public override Version RequiredExiledVersion => new(9, 8, 1);
 
 #else
         /// <inheritdoc />
@@ -45,7 +45,7 @@ public class Plugin : Plugin<Config>
 #endif
 
     /// <inheritdoc />
-    public override Version Version => new(3, 4, 0);
+    public override Version Version => new(3, 4, 1);
 
     /// <inheritdoc cref="EventHandlers" />
     private EventHandlers? Handler { get; set; }
