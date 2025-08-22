@@ -119,7 +119,7 @@ public class EventHandlers
 #else
     private void OnLockerInteract(PlayerInteractingLockerEventArgs ev)
     {
-        LockerChamber locker = ev.Locker.Base.Chambers.First();
+        LockerChamber locker = ev.Chamber?.Base;
 #endif
         Log.Debug("Locker Interact Event", Plugin.Instance.Config.Debug);
         try
