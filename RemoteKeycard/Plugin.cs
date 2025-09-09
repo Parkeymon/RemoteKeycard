@@ -38,10 +38,10 @@ public class Plugin : Plugin<Config>
 
 #else
         /// <inheritdoc />
-        public override Version RequiredApiVersion => new(1, 1, 0);
+    public override Version RequiredApiVersion => new(1, 1, 0);
 
         /// <inheritdoc />
-        public override string Description => "Plugin that allows you to use your keycards without the need of having them on your hand all the time";
+    public override string Description => "Plugin that allows you to use your keycards without the need of having them on your hand all the time";
 #endif
 
     /// <inheritdoc />
