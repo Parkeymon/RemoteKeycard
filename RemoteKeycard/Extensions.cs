@@ -21,7 +21,7 @@ public static class Extensions
     /// <returns>Whether the player has the required keycard.</returns>
     public static bool HasKeycardPermission(this Player player, IDoorPermissionRequester permissions)
     {
-        if (Plugin.Instance != null && Plugin.Instance.Config.AmnesiaMatters
+        if (Plugin.Instance.Config.AmnesiaMatters
 #if EXILED
             && player.IsEffectActive<AmnesiaVision>())
 #else

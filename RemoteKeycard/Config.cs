@@ -1,10 +1,27 @@
-﻿namespace RemoteKeycard;
+﻿#if EXILED
+using Exiled.API.Interfaces;
+#endif  
 
 using System.ComponentModel;
-using Exiled.API.Interfaces;
 
-public class Config : IConfig
+namespace RemoteKeycard;
+
+#if EXILED
+    public class Config : IConfig
+#else
+public class Config
+#endif
 {
+    /// <summary>
+    ///    Gets or sets a value indicating whether this plugin is enabled.
+    /// </summary>
+    public bool IsEnabled { get; set; } = true;
+
+    /// <summary>
+    /// Gets or sets a value indicating whether debug messages should be shown.
+    /// </summary>
+    public bool Debug { get; set; } = false;
+
     /// <summary>
     ///     Whether Amnesia affects the usage of keycards.
     /// </summary>
@@ -40,14 +57,4 @@ public class Config : IConfig
     /// </summary>
     [Description("Toggle on/off exceptions/errors in console. (Enable this before reporting ANY bugs)")]
     public bool ShowExceptions { get; set; } = false;
-
-    /// <summary>
-    ///    Gets or sets a value indicating whether this plugin is enabled.
-    /// </summary>
-    public bool IsEnabled { get; set; } = true;
-
-    /// <summary>
-    /// Gets or sets a value indicating whether debug messages should be shown.
-    /// </summary>
-    public bool Debug { get; set; } = false;
 }
