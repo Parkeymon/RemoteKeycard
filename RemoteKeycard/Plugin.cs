@@ -45,7 +45,7 @@ public class Plugin : Plugin<Config>
 #endif
 
     /// <inheritdoc />
-    public override Version Version => new(3, 4, 1);
+    public override Version Version => new(3, 4, 2);
 
     /// <inheritdoc cref="EventHandlers" />
     private EventHandlers? Handler { get; set; }
