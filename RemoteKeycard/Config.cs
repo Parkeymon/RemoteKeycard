@@ -7,7 +7,7 @@ using System.ComponentModel;
 namespace RemoteKeycard;
 
 #if EXILED
-    public class Config : IConfig
+public class Config : IConfig
 #else
 public class Config
 #endif
