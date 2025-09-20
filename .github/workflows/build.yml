@@ -8,16 +8,9 @@ on:
 jobs:
   build-and-release:
     runs-on: windows-latest
-    strategy:
-      matrix:
-        target: [EXILED, LabAPI]
-
     steps:
       - uses: actions/checkout@v4
-
-      - name: Setup NuGet
-        uses: nuget/setup-nuget@v1
-
+      
       - name: Restore Packages
         run: nuget restore RemoteKeycard.sln
 
@@ -31,11 +24,15 @@ jobs:
         run: |
           mkdir RemoteKeycard\lib
           tar -xf References.zip -C RemoteKeycard/lib
+          
+      - name: Build EXILED
+        run: msbuild RemoteKeycard.sln -p:Configuration=EXILED
 
-      - name: Build ${{ matrix.target }}
-        run: msbuild RemoteKeycard.sln -p:Configuration=${{ matrix.target }}
+      - name: Build LabAPI
+        run: msbuild RemoteKeycard.sln -p:Configuration=LabAPI
 
       - name: Create Release
+        if: startsWith(github.ref, 'refs/tags/')
         id: create_release
         uses: actions/create-release@v1
         env:
@@ -46,12 +43,24 @@ jobs:
           draft: false
           prerelease: false
 
-      - name: Upload ${{ matrix.target }} DLL to Release
+      - name: Upload EXILED DLL
+        if: startsWith(github.ref, 'refs/tags/')
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: RemoteKeycard\bin\${{ matrix.target }}\RemoteKeycard-${{ matrix.target }}.dll
-          asset_name: RemoteKeycard-${{ matrix.target }}.dll
+          asset_path: RemoteKeycard\bin\EXILED\RemoteKeycard-EXILED.dll
+          asset_name: RemoteKeycard-EXILED.dll
+          asset_content_type: application/octet-stream
+
+      - name: Upload LabAPI DLL
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: RemoteKeycard\bin\LabAPI\RemoteKeycard-LabAPI.dll
+          asset_name: RemoteKeycard-LabAPI.dll
           asset_content_type: application/octet-stream
