@@ -30,11 +30,9 @@ jobs:
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v1
 
-      - name: Download references
-        uses: carlosperate/download-file-action@v1.0.3
-        with:
-          file-url: 'https://exmod-team.github.io/SL-References/Dev.zip'
-          file-name: 'References.zip'
+      - name: Download References
+        run: Invoke-WebRequest -Uri "https://exmod-team.github.io/SL-References/Dev.zip" -OutFile "References.zip"
+
 
       - name: Extract Refs
         run: |
