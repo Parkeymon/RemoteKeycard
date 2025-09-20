@@ -1,11 +1,11 @@
-﻿#if EXILED
+﻿namespace RemoteKeycard;
+
+#if EXILED
 using Exiled.API.Interfaces;
 #endif  
-
 using System.ComponentModel;
 
-namespace RemoteKeycard;
-
+/// <inheritdoc />
 #if EXILED
 public class Config : IConfig
 #else
@@ -18,7 +18,7 @@ public class Config
     public bool IsEnabled { get; set; } = true;
 
     /// <summary>
-    /// Gets or sets a value indicating whether debug messages should be shown.
+    ///     Gets or sets a value indicating whether debug messages should be shown.
     /// </summary>
     public bool Debug { get; set; } = false;
 

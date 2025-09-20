@@ -1,7 +1,5 @@
 ﻿namespace RemoteKeycard;
 
-using System.Linq;
-using CustomPlayerEffects;
 #if EXILED
 using Exiled.API.Features;
 using Exiled.API.Features.Items;
@@ -9,8 +7,11 @@ using Exiled.API.Features.Items;
 using LabApi.Features.Wrappers;
 using Keycard = LabApi.Features.Wrappers.KeycardItem;
 #endif
+using System.Linq;
+using CustomPlayerEffects;
 using Interactables.Interobjects.DoorUtils;
 
+/// <inheritdoc />
 public static class Extensions
 {
     /// <summary>

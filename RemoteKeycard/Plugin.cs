@@ -8,8 +8,7 @@ using LabApi.Loader.Features.Plugins;
 #endif
 using System;
 
-
-
+/// <inheritdoc />
 public class Plugin : Plugin<Config>
 {
     /// <summary>
@@ -30,22 +29,22 @@ public class Plugin : Plugin<Config>
     public override string Name => "RemoteKeycard";
 
     /// <inheritdoc />
-    public override string Author => "Beryl (Maintained by Parkeymon && Unbistrackted)";
+    public override string Author => "Beryl && Parkeymon (Maintained by Unbistrackted)";
 
 #if EXILED
     /// <inheritdoc />
-    public override Version RequiredExiledVersion => new(9, 8, 1);
+    public override Version RequiredExiledVersion => new(9, 9, 2);
 
 #else
         /// <inheritdoc />
-    public override Version RequiredApiVersion => new(1, 1, 0);
+    public override Version RequiredApiVersion => new(1, 1, 2);
 
         /// <inheritdoc />
     public override string Description => "Plugin that allows you to use your keycards without the need of having them on your hand all the time";
 #endif
 
     /// <inheritdoc />
-    public override Version Version => new(3, 4, 2);
+    public override Version Version => new(3, 4, 0);
 
     /// <inheritdoc cref="EventHandlers" />
     private EventHandlers? Handler { get; set; }

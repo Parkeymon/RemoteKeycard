@@ -1,7 +1,6 @@
 ﻿namespace RemoteKeycard;
 
 #if EXILED
-using Exiled.API.Features;
 using Exiled.Events.EventArgs.Player;
 using PlayerEvents = Exiled.Events.Handlers.Player;
 #else
@@ -13,6 +12,7 @@ using System;
 using MapGeneration.Distributors;
 using Log = LabApi.Features.Console.Logger;
 
+/// <inheritdoc />
 public class EventHandlers
 {
     private readonly Config _config;
