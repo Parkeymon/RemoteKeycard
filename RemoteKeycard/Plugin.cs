@@ -1,8 +1,14 @@
 ﻿#nullable enable
 namespace RemoteKeycard;
 
-using System;
+#if EXILED
 using Exiled.API.Features;
+# else
+using LabApi.Loader.Features.Plugins;
+#endif
+using System;
+
+
 
 public class Plugin : Plugin<Config>
 {
@@ -24,39 +30,53 @@ public class Plugin : Plugin<Config>
     public override string Name => "RemoteKeycard";
 
     /// <inheritdoc />
-    public override string Prefix => "remote_keycard";
+    public override string Author => "Beryl (Maintained by Parkeymon && Unbistrackted)";
+
+#if EXILED
+    /// <inheritdoc />
+    public override Version RequiredExiledVersion => new(9, 8, 1);
+
+#else
+        /// <inheritdoc />
+    public override Version RequiredApiVersion => new(1, 1, 0);
+
+        /// <inheritdoc />
+    public override string Description => "Plugin that allows you to use your keycards without the need of having them on your hand all the time";
+#endif
 
     /// <inheritdoc />
-    public override Version RequiredExiledVersion => new(9, 6, 0);
-
-    /// <inheritdoc />
-    public override string Author => "Beryl (Maintained by Parkeymon)";
-
-    /// <inheritdoc />
-    public override Version Version => new(3, 3, 3);
+    public override Version Version => new(3, 4, 2);
 
     /// <inheritdoc cref="EventHandlers" />
     private EventHandlers? Handler { get; set; }
 
     /// <inheritdoc />
+#if EXILED
     public override void OnEnabled()
+#else
+    public override void Enable()
+#endif
     {
-        Log.Debug("Initializing events...");
         Handler = new EventHandlers(Config);
         Handler.Start();
-        Log.Debug("Events initialized successfully.");
 
+#if EXILED
         base.OnEnabled();
+#endif
     }
 
     /// <inheritdoc />
+#if EXILED
     public override void OnDisabled()
+#else
+    public override void Disable()
+#endif
     {
-        Log.Debug("Stopping events...");
         Handler?.Stop();
         Handler = null;
-        Log.Debug("Events stopped successfully.");
 
+#if EXILED
         base.OnDisabled();
+#endif
     }
 }
