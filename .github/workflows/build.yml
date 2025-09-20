@@ -33,19 +33,15 @@ jobs:
           file-url: 'https://exmod-team.github.io/SL-References/Dev.zip'
           file-name: 'References.zip'
 
-      - name: Download 7zip
-        uses: carlosperate/download-file-action@v1.0.3
-        with:
-          file-url: 'https://7-zip.org/a/7z2408-x64.exe'
-          file-name: '7zip.exe'
-
       - name: Extract Refs
-        run: ./7zip.exe e References.zip -oRemoteKeycard/lib/ -r -y
+        run: |
+          mkdir RemoteKeycard\lib
+          tar -xf References.zip -C RemoteKeycard/lib
 
       - name: Build
         env:
           EXILED_REFERENCES: ${{ env.EXILED_REFERENCES_PATH }}
-        run: msbuild RemoteKeycard.sln -p:Configuration=release
+        run: msbuild RemoteKeycard.sln -p:Configuration=EXILED
 
       - name: Upload Build
         uses: actions/upload-artifact@v4
