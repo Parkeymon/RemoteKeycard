@@ -3,7 +3,7 @@ name: Release
 on:
   push:
     tags:
-      - 'v*.*.*'  # Dispara quando você faz push de uma tag, ex: v3.4.2
+      - '*.*.*'
 
 jobs:
   build-and-release:
