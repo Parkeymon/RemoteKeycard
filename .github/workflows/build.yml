@@ -1,18 +1,12 @@
-name: Build
+name: Release
 
 on:
   push:
-    branches:
-      - master
-  pull_request:
-    branches:
-      - master
-
-env:
-  EXILED_REFERENCES_PATH: ${{ github.workspace }}/RemoteKeycard/lib
+    tags:
+      - 'v*.*.*'  # Dispara quando você faz push de uma tag, ex: v3.4.2
 
 jobs:
-  build:
+  build-and-release:
     runs-on: windows-latest
     strategy:
       matrix:
@@ -30,20 +24,32 @@ jobs:
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v1
 
-      - name: Download References
+      - name: Download references
         run: Invoke-WebRequest -Uri "https://exmod-team.github.io/SL-References/Dev.zip" -OutFile "References.zip"
 
-
       - name: Extract Refs
-        run: |
-          mkdir RemoteKeycard\lib
-          tar -xf References.zip -C RemoteKeycard/lib
+        run: tar -xf References.zip -C RemoteKeycard/lib
 
       - name: Build ${{ matrix.target }}
         run: msbuild RemoteKeycard.sln -p:Configuration=${{ matrix.target }}
 
-      - name: Upload Build ${{ matrix.target }}
-        uses: actions/upload-artifact@v4
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          name: Plugin-${{ matrix.target }}
-          path: RemoteKeycard\bin\${{ matrix.target }}\RemoteKeycard-${{ matrix.target }}.dll
+          tag_name: ${{ github.ref_name }}
+          release_name: Release ${{ github.ref_name }}
+          draft: false
+          prerelease: false
+
+      - name: Upload ${{ matrix.target }} DLL to Release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: RemoteKeycard\bin\${{ matrix.target }}\RemoteKeycard-${{ matrix.target }}.dll
+          asset_name: RemoteKeycard-${{ matrix.target }}.dll
+          asset_content_type: application/octet-stream
