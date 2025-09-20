@@ -1,4 +1,4 @@
-﻿name: Build
+name: Build
 
 on:
   push:
@@ -14,12 +14,15 @@ env:
 jobs:
   build:
     runs-on: windows-latest
+    strategy:
+      matrix:
+        target: [EXILED, LabAPI]
 
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Nuget
-        uses: iRebbok/setup-nuget@master
+      - name: Setup NuGet
+        uses: nuget/setup-nuget@v1
 
       - name: Restore Packages
         run: nuget restore RemoteKeycard.sln
@@ -38,13 +41,11 @@ jobs:
           mkdir RemoteKeycard\lib
           tar -xf References.zip -C RemoteKeycard/lib
 
-      - name: Build
-        env:
-          EXILED_REFERENCES: ${{ env.EXILED_REFERENCES_PATH }}
-        run: msbuild RemoteKeycard.sln -p:Configuration=EXILED
+      - name: Build ${{ matrix.target }}
+        run: msbuild RemoteKeycard.sln -p:Configuration=${{ matrix.target }}
 
-      - name: Upload Build
+      - name: Upload Build ${{ matrix.target }}
         uses: actions/upload-artifact@v4
         with:
-          name: Plugin DLL
-          path: RemoteKeycard\bin\Release\RemoteKeycard*.dll
+          name: Plugin-${{ matrix.target }}
+          path: RemoteKeycard\bin\${{ matrix.target }}\RemoteKeycard-${{ matrix.target }}.dll
