@@ -28,7 +28,9 @@ jobs:
         run: Invoke-WebRequest -Uri "https://exmod-team.github.io/SL-References/Dev.zip" -OutFile "References.zip"
 
       - name: Extract Refs
-        run: tar -xf References.zip -C RemoteKeycard/lib
+        run: |
+          mkdir RemoteKeycard\lib
+          tar -xf References.zip -C RemoteKeycard/lib
 
       - name: Build ${{ matrix.target }}
         run: msbuild RemoteKeycard.sln -p:Configuration=${{ matrix.target }}
