@@ -33,7 +33,9 @@ jobs:
 
       - name: Create Release
         uses: ncipollo/release-action@v1
+        id: create_release
         with:
+          generateReleaseNotes: true
           tag: ${{ github.ref_name }} 
 
       - name: Upload EXILED DLL
