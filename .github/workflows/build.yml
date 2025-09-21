@@ -31,29 +31,11 @@ jobs:
       - name: Build LabAPI
         run: msbuild RemoteKeycard.sln -p:Configuration=LabAPI
 
-      - name: Create Release
-        uses: ncipollo/release-action@v1
+      - name: Create Release with Dlls
+        uses: softprops/action-gh-release@v2
         id: create_release
         with:
-          generateReleaseNotes: true
-          tag: ${{ github.ref_name }} 
-
-      - name: Upload EXILED DLL
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        uses: actions/upload-release-asset@v1
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: RemoteKeycard\bin\EXILED\RemoteKeycard-EXILED.dll
-          asset_name: RemoteKeycard-EXILED.dll
-          asset_content_type: application/octet-stream
-
-      - name: Upload LabAPI DLL
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        uses: actions/upload-release-asset@v1
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: RemoteKeycard\bin\LabAPI\RemoteKeycard-LabAPI.dll
-          asset_name: RemoteKeycard-LabAPI.dll
-          asset_content_type: application/octet-stream
+          generate_release_notes: true
+          files: |
+            RemoteKeycard/bin/EXILED/RemoteKeycard-EXILED.dll
+            RemoteKeycard/bin/LabAPI/RemoteKeycard-LabAPI.dll
